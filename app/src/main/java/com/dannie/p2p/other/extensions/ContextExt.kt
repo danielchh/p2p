@@ -1,37 +1,20 @@
 package com.dannie.p2p.other.extensions
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
 
-
-
-fun defaultPrefs(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit){
-    val editor = this.edit()
-    operation(editor)
-    editor.apply()
+fun Context.getNavBarHeight(): Int{
+    return getHeight("navigation_bar_height", this)
 }
 
-fun SharedPreferences.setValue(key: String, value: Any?){
-    when(value){
-        is String -> edit({it.putString(key, value)})
-        is Int -> edit({it.putInt(key, value)})
-        is Boolean -> edit({it.putBoolean(key, value)})
-        is Float -> edit({it.putFloat(key, value)})
-        is Long -> edit({it.putLong(key, value)})
-        else -> throw UnsupportedOperationException("Such type is not yet supported!")
-    }
+fun Context.getStatusBarHeight(): Int {
+    return getHeight("status_bar_height", this)
 }
 
-inline fun <reified T: Any> SharedPreferences.getValue(key: String, defaultValue: T? = null) : T{
-    return when (T::class){
-        String::class -> getString(key, defaultValue as? String) as T
-        Int::class -> getInt(key, defaultValue as? Int ?: -1) as T
-        Boolean::class -> getBoolean(key, defaultValue as? Boolean ?: false) as T
-        Float::class -> getFloat(key, defaultValue as? Float ?: -1F) as T
-        Long::class -> getLong(key, defaultValue as? Long ?: -1) as T
-        else -> throw UnsupportedOperationException("Such type is not yet supported!")
+private fun getHeight(itemName: String, context: Context): Int {
+    var result = 0
+    val resourceId = context.resources.getIdentifier(itemName, "dimen", "android")
+    if (resourceId > 0) {
+        result = context.resources.getDimensionPixelSize(resourceId)
     }
+    return result
 }

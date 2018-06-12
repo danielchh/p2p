@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">p2p</string>
+
+    <!--First open screen-->
+    <string name="first_open_description">You will use this app in order to keep track of all credit card numbers you, or your friends, have.\n\nYou can also note how much money you owe, or somebody owes you.</string>
+    <string name="import_contacts">Import contacts</string>
+
+
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="roboto_medium">sans-serif-medium</string>
+    <string name="roboto_regular">sans-serif</string>
+    <string name="roboto_condensed">sans-serif-condensed</string>
+    <string name="roboto_black">sans-serif-black</string>
+    <string name="roboto_thin">sans-serif-thin</string>
+    <string name="skip">Skip</string>
 </resources>

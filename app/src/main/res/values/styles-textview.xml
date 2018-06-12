@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Text views-->
+    <style name="TxtCustom">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TxtWhite" parent="TxtCustom">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+    <style name="TxtBlack" parent="TxtCustom">
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+    <style name="TxtWhiteThin" parent="TxtWhite">
+        <item name="android:fontFamily">@string/roboto_light</item>
+    </style>
+</resources>

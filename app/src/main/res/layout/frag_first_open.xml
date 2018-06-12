@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@drawable/bg_blue">
 
+    <ImageView
+        android:id="@+id/ivEye"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+
+        android:src="@drawable/ic_money_minded"
+
+        app:layout_constraintBottom_toTopOf="@+id/ivContacts"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/ivContacts"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_contacts"
+
+        app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="@id/ivEye"
+        app:layout_constraintRight_toRightOf="@id/ivEye"
+        app:layout_constraintTop_toBottomOf="@+id/ivEye" />
+
+    <ImageView
+        android:id="@+id/ivCredit"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_creditcard"
+
+        app:layout_constraintBottom_toBottomOf="@id/ivContacts"
+        app:layout_constraintRight_toLeftOf="@id/ivContacts" />
+
+    <ImageView
+        android:id="@+id/ivCoins"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_coins"
+
+        app:layout_constraintBottom_toBottomOf="@id/ivContacts"
+        app:layout_constraintLeft_toRightOf="@id/ivContacts" />
+
+    <TextView
+        android:id="@+id/txtDescription"
+        style="@style/TxtWhiteThin"
+        android:layout_width="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp"
+
+        android:text="@string/first_open_description"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnImportContacts"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@id/left_space"
+        app:layout_constraintRight_toLeftOf="@id/right_space"
+        app:layout_constraintTop_toBottomOf="@+id/ivContacts" />
+
+    <android.widget.Space
+        android:id="@+id/left_space"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="34dp"
+        app:layout_constraintRight_toLeftOf="@id/ivCredit" />
+
+    <android.widget.Space
+        android:id="@+id/right_space"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintLeft_toRightOf="@id/ivCoins" />
+
+    <Button
+        android:id="@+id/btnImportContacts"
+        style="@style/ButtonRoundWhite"
+        android:text="@string/import_contacts"
+        app:layout_constraintEnd_toEndOf="@+id/txtDescription"
+        app:layout_constraintStart_toStartOf="@+id/txtDescription"
+        app:layout_constraintBottom_toTopOf="@id/btnSkip"
+        android:layout_marginBottom="8dp"
+        />
+
+    <Button
+        android:id="@+id/btnSkip"
+        style="@style/ButtonFlat"
+        android:layout_marginBottom="24dp"
+        android:text="@string/skip"
+        app:layout_constraintEnd_toEndOf="@+id/txtDescription"
+        app:layout_constraintStart_toStartOf="@+id/txtDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 </android.support.constraint.ConstraintLayout>
