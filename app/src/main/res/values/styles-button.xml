@@ -14,6 +14,7 @@
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@string/roboto_light</item>
         <item name="android:textColor">@color/text_black</item>
+
     </style>
 
     <style name="ButtonElevation" parent="ButtonBase">

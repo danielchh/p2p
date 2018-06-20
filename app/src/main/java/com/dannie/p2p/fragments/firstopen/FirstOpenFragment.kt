@@ -1,13 +1,16 @@
 package com.dannie.p2p.fragments.firstopen
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dannie.p2p.R
+import com.dannie.p2p.fragments.BaseFragment
+import com.dannie.p2p.fragments.main.MainFragment
+import com.dannie.p2p.fragments.main.test
+import kotlinx.android.synthetic.main.frag_first_open.*
 
-class FirstOpenFragment: Fragment() {
+class FirstOpenFragment: BaseFragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.frag_first_open, container, false)
@@ -15,5 +18,27 @@ class FirstOpenFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initUI(view)
+    }
+
+    override fun initUI(view: View) {
+        btnImportContacts.setOnClickListener(this)
+        btnSkip.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btnImportContacts -> importContactsClicked()
+            R.id.btnSkip -> skipClicked()
+        }
+    }
+
+    private fun skipClicked() {
+        replaceFragment(test(), true)
+    }
+
+    private fun importContactsClicked() {
+        replaceFragment(MainFragment(), true)
     }
 }

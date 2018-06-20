@@ -10,13 +10,17 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.dannie.p2p.fragments.firstopen.FirstOpenFragment
+import com.dannie.p2p.fragments.main.MainFragment
+import com.dannie.p2p.fragments.main.test
 import com.dannie.p2p.other.Const
 import com.dannie.p2p.other.extensions.*
 
 
-class BaseActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    val mainContainerId: Int = View.generateViewId()
+    companion object {
+        val mainContainerId: Int = View.generateViewId()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +41,12 @@ class BaseActivity : AppCompatActivity() {
         }
     }
 
-    // Making status bar and navbar transparent
-    // then added white view to be a navbar background
-    // added padding to match status bar height
-    // added them to the root with appropeiate constraints
+    /**
+     * Making status bar and navbar transparent.
+     * then added white view to be a navbar background
+     * added padding to match status bar height
+     * added them to the root with appropriate constraints
+     */
     private fun configureScreen() {
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)

@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="14" />
-                            <entry key="outputName" value="ic_contacts" />
+                            <entry key="height" value="32" />
+                            <entry key="outputName" value="ic_visa" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="F:\Android\My\p2p\design\src\ic_contacts.svg" />
-                            <entry key="width" value="22" />
+                            <entry key="sourceFile" value="F:\Downloads\ic_visa.svg" />
+                            <entry key="width" value="32" />
                           </map>
                         </option>
                       </PersistentState>
