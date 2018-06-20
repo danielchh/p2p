@@ -1,6 +1,7 @@
 package com.dannie.p2p.fragments.main
 
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -14,17 +15,21 @@ import com.dannie.p2p.fragments.BaseFragment
 import android.widget.TextView
 import android.widget.LinearLayout
 import android.view.animation.AlphaAnimation
+import com.dannie.p2p.other.extensions.dp2px
 import com.dannie.p2p.other.extensions.getFloatDimen
 import com.dannie.p2p.other.shadowview.ViewUtils
 import kotlinx.android.synthetic.main.frag_main.*
 
 class MainFragment: BaseFragment(), View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
-    private val ANIM_START = 0.7F
-    private val ANIM_END = 0.3F
+    companion object {
+        const val ANIM_START = 0.7F
+        const val ANIM_END = 0.3F
+        const val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
+        const val ALPHA_ANIMATIONS_DURATION = 200L
 
-    private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
-    private val ALPHA_ANIMATIONS_DURATION = 200L
+        const val cardAmount = 1
+    }
 
     private var mIsTheTitleContainerVisible = true
 
@@ -51,7 +56,14 @@ class MainFragment: BaseFragment(), View.OnClickListener, AppBarLayout.OnOffsetC
         mTitleContainer = view.findViewById(R.id.main_linearlayout_title)
         mAppBarLayout = view.findViewById(R.id.main_appbar)
 
-
+//        TODO: this is definitely not working
+        when (cardAmount){
+            2 -> {
+                card2.visibility = View.VISIBLE
+                val newHeight = resources.getDimension(R.dimen.item_card_small_height_double).toInt()
+                spaceToolbar.layoutParams = ConstraintLayout.LayoutParams(1, newHeight)
+            }
+        }
     }
 
     override fun onClick(v: View?) {
@@ -65,10 +77,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, AppBarLayout.OnOffsetC
         val percentage = Math.abs(verticalOffset) / (maxScroll!!.times(1.0F))
 
         handleHeaders(percentage)
-        handleAlphaOnTitle(percentage)
+//        handleAlphaOnTitle(percentage)
     }
 
     private fun handleHeaders(percentage: Float) {
+
         val avatarScale = context?.getFloatDimen(R.dimen.avatar_scale) ?: 1.4F
         val avatarTranslate = context?.resources?.getDimension(R.dimen.avatar_translation) ?: 20F
 
@@ -97,9 +110,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, AppBarLayout.OnOffsetC
         txtDebt.translationX = - newWidth
 
         //TODO: change alpha animation to translation
-        val alpha = countCoef(0.8F, 0.5F, 1F, 0F, percentage)
-        card1.alpha = alpha ?: card1.alpha
-        card2.alpha = alpha ?: card2.alpha
+        val alpha = countCoef(0.8F, 0.5F, 0F, 100F, percentage)
+//        card1.alpha = alpha ?: card1.alpha
+//        card2.alpha = alpha ?: card2.alpha
+//        card1.translationY = alpha ?: card1.translationY
+//        card2.translationY = alpha ?: card2.translationY
     }
 
     private fun countCoef(startPercent: Float, endPercent: Float, zero: Float, one: Float, percentage: Float) : Float?{
