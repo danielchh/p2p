@@ -10,9 +10,6 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.dannie.p2p.fragments.firstopen.FirstOpenFragment
-import com.dannie.p2p.fragments.main.MainFragment
-import com.dannie.p2p.fragments.main.test
-import com.dannie.p2p.other.Const
 import com.dannie.p2p.other.extensions.*
 
 
@@ -20,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val mainContainerId: Int = View.generateViewId()
+        const val FIRST_OPEN = "sp_first_open"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         configureScreen()
 
         val sharedPrefs = defaultPrefs(this)
-        val firstOpen = sharedPrefs.getValue(Const.SharedPrefs.FIRST_OPEN, true)
+        val firstOpen = sharedPrefs.getValue(FIRST_OPEN, true)
 
         if (firstOpen) {
 //            sharedPrefs.setValue(Const.SharedPrefs.FIRST_OPEN, false)
@@ -67,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         root.addView(mainContainer, ConstraintLayout.LayoutParams(matchConstraint, matchConstraint))
 
         val constraintSet = ConstraintSet()
-        with (constraintSet){
+        with(constraintSet) {
             clone(root)
 
             connect(navBarView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)

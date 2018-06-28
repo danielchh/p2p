@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@drawable/bg_blue"
-    tools:ignore="RtlHardcoded"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -13,18 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         app:elevation="0dp"
-        app:expanded="false"
-        >
+        app:expanded="false">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             android:clipChildren="false"
             android:clipToPadding="false"
-            >
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
 
             <android.support.v7.widget.Toolbar
@@ -32,6 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:paddingEnd="12dp"
                 android:paddingStart="12dp"
                 android:paddingTop="12dp"
@@ -40,15 +43,14 @@
                 app:contentInsetRight="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark"
-                >
+                app:theme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/containerHeaders"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:clipChildren="false">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/ivAvatar"
@@ -101,50 +103,44 @@
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.Toolbar>
 
-            <FrameLayout
-                android:id="@+id/main.framelayout.title"
+
+            <LinearLayout
+                android:id="@+id/llContainerCards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:layout_marginTop="100dp"
                 android:orientation="vertical"
+                android:clipToPadding="false"
+                android:clipChildren="false"
 
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.5">
 
-                <LinearLayout
-                    android:id="@+id/main.linearlayout.title"
+                <include
+                    android:id="@+id/card1"
+                    layout="@layout/item_card_small_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_marginTop="4dp" />
 
-                    <include
-                        android:id="@+id/card1"
-                        layout="@layout/item_card_small_main"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                <include
+                    android:id="@+id/card2"
+                    layout="@layout/item_card_small_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
-                        android:layout_marginTop="4dp" />
+                <android.widget.Space
+                    android:id="@+id/spaceCards"
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/item_card_small_height_double"
 
-                    <include
-                        android:id="@+id/card2"
-                        layout="@layout/item_card_small_main"
-                        android:visibility="gone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintLeft_toLeftOf="@id/txtYou"
+                    app:layout_constraintTop_toBottomOf="@id/txtYou" />
 
-                    <android.widget.Space
-                        android:id="@+id/spaceCards"
-                        android:layout_width="1dp"
-                        android:layout_height="@dimen/item_card_small_height_double"
-
-                        android:layout_marginTop="4dp"
-                        app:layout_constraintLeft_toLeftOf="@id/txtYou"
-                        app:layout_constraintTop_toBottomOf="@id/txtYou" />
-
-                </LinearLayout>
-            </FrameLayout>
+            </LinearLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -153,7 +149,8 @@
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/layers"
+        android:background="@drawable/bg_content_main"
+        android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView

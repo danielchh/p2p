@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.dannie.p2p.R
 import com.dannie.p2p.fragments.BaseFragment
+import com.dannie.p2p.fragments.contacts.ContactsFragment
 import com.dannie.p2p.fragments.main.MainFragment
-import com.dannie.p2p.fragments.main.test
 import kotlinx.android.synthetic.main.frag_first_open.*
 
 class FirstOpenFragment: BaseFragment(), View.OnClickListener {
@@ -35,10 +35,10 @@ class FirstOpenFragment: BaseFragment(), View.OnClickListener {
     }
 
     private fun skipClicked() {
-        replaceFragment(test(), true)
+        replaceFragment(MainFragment(), true)
     }
 
     private fun importContactsClicked() {
-        replaceFragment(MainFragment(), true)
+        replaceFragment(ContactsFragment(), true)
     }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:drawable="@drawable/shadow_batch" />
 
-    <item android:drawable="@drawable/bg_content_white_rounded"/>
+    <item android:drawable="@drawable/bg_content_white_rounded" />
 
 </layer-list>

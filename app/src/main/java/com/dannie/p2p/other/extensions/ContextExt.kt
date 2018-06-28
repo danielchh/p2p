@@ -1,9 +1,7 @@
 package com.dannie.p2p.other.extensions
 
 import android.content.Context
-import android.content.res.Resources
 import android.support.annotation.DimenRes
-import android.support.annotation.IdRes
 import android.util.DisplayMetrics
 import android.util.TypedValue
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="@dimen/avatar_small"
+        android:layout_height="@dimen/avatar_small"
+        tools:src="@drawable/avatar_hen"
+        />
+
+    <TextView
+        android:id="@+id/txtFirstName"
+        style="@style/TxtBlackLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/text_contact_import"
+        android:textAlignment="viewStart"
+
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+        app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+        app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+        android:layout_marginStart="16dp"
+        tools:text="Вадим" />
+
+    <TextView
+        android:id="@+id/txtLastName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TxtBlackLight"
+        android:textSize="@dimen/text_contact_import"
+        tools:text="Заболотный"
+        android:maxLines="1"
+
+        app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+        app:layout_constraintLeft_toRightOf="@+id/txtFirstName"
+        app:layout_constraintRight_toLeftOf="@id/checkBox"
+        android:textAlignment="viewStart"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+        android:layout_marginEnd="16dp"
+        />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

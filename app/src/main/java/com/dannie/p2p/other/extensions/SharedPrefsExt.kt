@@ -14,11 +14,11 @@ inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit)
 
 fun SharedPreferences.setValue(key: String, value: Any?){
     when(value){
-        is String -> edit({it.putString(key, value)})
-        is Int -> edit({it.putInt(key, value)})
-        is Boolean -> edit({it.putBoolean(key, value)})
-        is Float -> edit({it.putFloat(key, value)})
-        is Long -> edit({it.putLong(key, value)})
+        is String -> edit {it.putString(key, value)}
+        is Int -> edit{it.putInt(key, value)}
+        is Boolean -> edit{it.putBoolean(key, value)}
+        is Float -> edit{it.putFloat(key, value)}
+        is Long -> edit{it.putLong(key, value)}
         else -> throw UnsupportedOperationException("Such type is not yet supported!")
     }
 }

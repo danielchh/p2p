@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="avatars">
+        <item>@drawable/avatar_anteater</item>
+        <item>@drawable/avatar_bear</item>
+        <item>@drawable/avatar_beaver</item>
+        <item>@drawable/avatar_boar</item>
+        <item>@drawable/avatar_buffalo</item>
+        <item>@drawable/avatar_buffalo_1</item>
+        <item>@drawable/avatar_cat</item>
+        <item>@drawable/avatar_chicken</item>
+        <item>@drawable/avatar_cow</item>
+        <item>@drawable/avatar_crow</item>
+        <item>@drawable/avatar_dog</item>
+        <item>@drawable/avatar_dog_1</item>
+        <item>@drawable/avatar_donkey</item>
+        <item>@drawable/avatar_elephant</item>
+        <item>@drawable/avatar_fox</item>
+        <item>@drawable/avatar_giraffe</item>
+        <item>@drawable/avatar_hedgehog</item>
+        <item>@drawable/avatar_hen</item>
+        <item>@drawable/avatar_hippopotamus</item>
+        <item>@drawable/avatar_horse</item>
+        <item>@drawable/avatar_kangaroo</item>
+        <item>@drawable/avatar_koala</item>
+        <item>@drawable/avatar_leopard</item>
+        <item>@drawable/avatar_lion</item>
+        <item>@drawable/avatar_marten</item>
+        <item>@drawable/avatar_monkey</item>
+        <item>@drawable/avatar_monkey_1</item>
+        <item>@drawable/avatar_mouse</item>
+        <item>@drawable/avatar_octopus</item>
+        <item>@drawable/avatar_ostrich</item>
+        <item>@drawable/avatar_owl</item>
+        <item>@drawable/avatar_panda</item>
+        <item>@drawable/avatar_parrot</item>
+        <item>@drawable/avatar_penguin</item>
+        <item>@drawable/avatar_penguin_1</item>
+        <item>@drawable/avatar_pig</item>
+        <item>@drawable/avatar_polar_bear</item>
+        <item>@drawable/avatar_rabbit</item>
+        <item>@drawable/avatar_racoon</item>
+        <item>@drawable/avatar_rhinoceros</item>
+        <item>@drawable/avatar_rooster</item>
+        <item>@drawable/avatar_seagull</item>
+        <item>@drawable/avatar_seal</item>
+        <item>@drawable/avatar_sheep</item>
+        <item>@drawable/avatar_sheep_1</item>
+        <item>@drawable/avatar_sloth</item>
+        <item>@drawable/avatar_snake</item>
+        <item>@drawable/avatar_tiger</item>
+        <item>@drawable/avatar_whale</item>
+        <item>@drawable/avatar_zebra</item>
+    </array>
+</resources>
