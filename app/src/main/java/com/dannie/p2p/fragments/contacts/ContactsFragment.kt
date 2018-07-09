@@ -1,17 +1,17 @@
 package com.dannie.p2p.fragments.contacts
 
 import android.Manifest
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
+import android.view.animation.*
 import android.widget.Toast
 import com.dannie.p2p.R
 import com.dannie.p2p.fragments.BaseFragment
@@ -48,6 +48,7 @@ class ContactsFragment : BaseFragment() {
             if (it == null){
                 showNoContactsMessage()
             } else {
+                log("Got contacts")
                 rvContacts.adapter = ContactsImportRVAdapter(it)
             }
         })
@@ -98,11 +99,19 @@ class ContactsFragment : BaseFragment() {
     }
 
     override fun initUI(view: View) {
-        rvContacts.layoutManager = LinearLayoutManager(context)
+        showEnterAnim()
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            scrollView.isVerticalScrollBarEnabled = false
+        with(rvContacts){
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
         }
+    }
+
+    //TODO("not implemented") this shit lags, brah
+    private fun showEnterAnim() {
+        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+        animation.interpolator = DecelerateInterpolator()
+        rvContacts.startAnimation(animation)
     }
 
 }

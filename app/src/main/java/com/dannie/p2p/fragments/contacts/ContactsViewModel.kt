@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.dannie.p2p.models.room.ContactRoom
 import com.dannie.p2p.models.room.setNewAvatar
+import com.dannie.p2p.other.extensions.log
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.util.*
@@ -36,6 +37,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun fetchNativeContacts() {
+        log("Start Fetching")
         contactsState.value = ContactsState.FETCHING
         doAsync {
             val list = ArrayList<ContactRoom>()
@@ -61,6 +63,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
             nameCur.close()
 
             uiThread {
+                log("End fetching")
                 contactsState.value = ContactsState.FETCHED
                 contactsNative.value = list
             }
