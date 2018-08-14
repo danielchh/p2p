@@ -10,8 +10,11 @@ import android.view.ViewGroup
 import com.dannie.p2p.R
 import com.dannie.p2p.fragments.BaseFragment
 import com.dannie.p2p.other.extensions.getFloatDimen
+import com.dannie.p2p.other.extensions.log
+import com.dannie.p2p.room.P2PDataBase
 import kotlinx.android.synthetic.main.frag_main.*
 import kotlinx.android.synthetic.main.item_card_small_main.view.*
+import org.jetbrains.anko.doAsync
 
 class MainFragment: BaseFragment(), View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
@@ -25,6 +28,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, AppBarLayout.OnOffsetC
         const val cardAmount = 2
     }
 
+    override val resource = R.layout.frag_main
+
     private var mAppBarLayout: AppBarLayout? = null
     private var mToolbar: Toolbar? = null
 
@@ -32,17 +37,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, AppBarLayout.OnOffsetC
     private val cardInfoInitWidth by lazy { card1.clCardInfo.width }
     private val descriptionHeight by lazy{ resources.getDimension(R.dimen.description_height) }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.frag_main, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initUI(view)
         mAppBarLayout?.addOnOffsetChangedListener(this)
-
     }
 
     override fun initUI(view: View) {

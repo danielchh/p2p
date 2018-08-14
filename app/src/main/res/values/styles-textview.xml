@@ -37,4 +37,10 @@
     <style name="TxtWhiteRegular" parent="TxtWhite">
         <item name="android:fontFamily">@string/roboto_regular</item>
     </style>
+
+    <style name="TxtContactSectionHeader" parent="TxtCustom">
+        <item name="android:fontFamily">@string/roboto_light</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">28sp</item>
+    </style>
 </resources>

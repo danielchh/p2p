@@ -19,4 +19,7 @@ interface P2PDataDao {
     @Insert(onConflict = REPLACE)
     fun insertAllContacts(contacts: List<ContactRoom>)
 
+    @Query("select * from ${ContactRoom.TABLE_NAME} where ${ContactRoom.COLUMN_REFERENCE} = :reference AND ${ContactRoom.COLUMN_REFERENCE_ID} = :referenceId")
+    fun loadSingleContact(reference: String, referenceId:String): ContactRoom
+
 }

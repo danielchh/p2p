@@ -1,9 +1,8 @@
 package com.dannie.p2p.fragments.firstopen
 
+import android.app.FragmentTransaction
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.dannie.p2p.R
 import com.dannie.p2p.fragments.BaseFragment
 import com.dannie.p2p.fragments.contacts.ContactsFragment
@@ -12,9 +11,7 @@ import kotlinx.android.synthetic.main.frag_first_open.*
 
 class FirstOpenFragment: BaseFragment(), View.OnClickListener {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.frag_first_open, container, false)
-    }
+    override val resource = R.layout.frag_first_open
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +36,6 @@ class FirstOpenFragment: BaseFragment(), View.OnClickListener {
     }
 
     private fun importContactsClicked() {
-        replaceFragment(ContactsFragment(), true)
+        replaceFragment(ContactsFragment(), true, FragmentTransaction.TRANSIT_NONE, R.anim.anim_fade_out)
     }
 }

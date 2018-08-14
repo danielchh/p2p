@@ -12,28 +12,31 @@ data class ContactRoom (@ColumnInfo(name = ContactRoom.COLUMN_FIRST_NAME) var fi
                         @ColumnInfo(name = ContactRoom.COLUMN_AVATAR_URI) var imageUri: String?,
                         @ColumnInfo(name = ContactRoom.COLUMN_REFERENCE) var reference: String,
                         @ColumnInfo(name = ContactRoom.COLUMN_REFERENCE_ID) var referenceId: String,
-                        @PrimaryKey(autoGenerate = true) var id: Long = 0) {
-
+                        @PrimaryKey(autoGenerate = true) var id: Long = 0){
     companion object {
+
         const val TABLE_NAME = "contact_room"
         const val COLUMN_FIRST_NAME = "first_name"
         const val COLUMN_LAST_NAME = "last_name"
         const val COLUMN_AVATAR_URI = "image_uri"
         const val COLUMN_REFERENCE = "reference"
         const val COLUMN_REFERENCE_ID = "reference_id"
-
         const val COLUMN_AVATAR_AVAILABLE = "avatar_available"
-        const val COLUMN_AVATAR_ID = "avatar_id"
-        const val AVATAR_ID_MISSING = -1
 
+        const val COLUMN_AVATAR_ID = "avatar_id"
         const val REFERENCE_NATIVE = "reference_native"
+
         const val REFERENCE_TELEGRAM = "reference_telegram"
     }
-    @ColumnInfo(name = ContactRoom.COLUMN_AVATAR_AVAILABLE) var isAvatarAvailable: Boolean = imageUri != null
     @ColumnInfo(name = ContactRoom.COLUMN_AVATAR_ID) var avatarId: Int? = null
-
+    @ColumnInfo(name = ContactRoom.COLUMN_AVATAR_AVAILABLE) var isAvatarAvailable: Boolean = imageUri != null || avatarId != null
+    var isAlreadyAdded = false
     override fun toString(): String {
         return "id = $id, name = $firstName, lastName = $lastName, imageUri = $imageUri, reference = $reference, referenceId = $referenceId, isAvatarAvailable = $isAvatarAvailable, avatarId = $avatarId"
+    }
+
+    fun toStringLite(): String{
+        return "id = $id, name = $firstName, lastName = $lastName, isAlreadyAdded = $isAlreadyAdded"
     }
 }
 

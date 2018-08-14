@@ -1,38 +1,40 @@
 package com.dannie.p2p.fragments.contacts
 
 import android.Manifest
-import android.app.Activity
+import android.animation.ValueAnimator
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.*
+import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import com.dannie.p2p.R
 import com.dannie.p2p.fragments.BaseFragment
 import com.dannie.p2p.fragments.contacts.rv.ContactsImportRVAdapter
+import com.dannie.p2p.fragments.contacts.rv.OnCheckedContactChangeListener
+import com.dannie.p2p.fragments.contacts.rv.OnDrawnLinearLayoutManager
+import com.dannie.p2p.fragments.contacts.rv.RecyclerViewOnLayoutCallback
+import com.dannie.p2p.fragments.main.MainFragment
 import com.dannie.p2p.models.room.ContactRoom
 import com.dannie.p2p.other.extensions.log
 import kotlinx.android.synthetic.main.frag_contacts.*
 
 
-class ContactsFragment : BaseFragment() {
+class ContactsFragment : BaseFragment(), OnCheckedContactChangeListener, RecyclerViewOnLayoutCallback {
 
     companion object {
         const val PERMISSION_REQUEST_CONTACT = 100
     }
 
+    override val resource = R.layout.frag_contacts
+
+    private var fabIsVisible = false
+
     private val viewModel: ContactsViewModel by lazy {
         ViewModelProviders.of(this).get(ContactsViewModel::class.java)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.frag_contacts, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,21 +50,41 @@ class ContactsFragment : BaseFragment() {
             if (it == null){
                 showNoContactsMessage()
             } else {
-                log("Got contacts")
-                rvContacts.adapter = ContactsImportRVAdapter(it)
+                rvContacts.adapter = ContactsImportRVAdapter(it, this).apply { setHasStableIds(true) }
             }
         })
 
         //Observing state of data
         viewModel.getContactsState().observe(this, Observer {
             when (it){
-                ContactsState.FETCHED -> {}
-                ContactsState.FETCHING -> {}
                 ContactsState.PERMISSION_DENIED -> { showNoPermissionNoContactMessage() }
-                ContactsState.PERMISSION_GRANTED -> {}
                 ContactsState.NO_PERMISSION -> { askForContactPermission() }
+                ContactsState.HIDE_FAB -> animateFab(false)
+                ContactsState.SHOW_FAB -> animateFab(true)
+                ContactsState.IMPORT_FINISHED -> gotoMainScreen()
             }
         })
+    }
+
+    private fun gotoMainScreen() {
+        replaceFragment(MainFragment())
+    }
+
+    private fun animateFab(show: Boolean){
+        if (fabIsVisible != show){
+            val animation = if (show){
+                AnimationUtils.loadAnimation(context, R.anim.anim_fade_scale_in)
+            } else {
+                AnimationUtils.loadAnimation(context, R.anim.anim_fade_scale_out)
+            }
+            fabAdd.startAnimation(animation)
+            fabAdd.isClickable = show
+            fabIsVisible = show
+        }
+    }
+
+    override fun onCheckedChanged(contact: ContactRoom) {
+        viewModel.onContactChosen(contact, fabIsVisible)
     }
 
     private fun showNoContactsMessage() {
@@ -99,19 +121,27 @@ class ContactsFragment : BaseFragment() {
     }
 
     override fun initUI(view: View) {
-        showEnterAnim()
-
         with(rvContacts){
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = OnDrawnLinearLayoutManager(context, this@ContactsFragment)
             setHasFixedSize(true)
         }
+
+        fabAdd.setOnClickListener { viewModel.onAddClicked() }
     }
 
-    //TODO("not implemented") this shit lags, brah
+    override fun onInitLayout() {
+        showEnterAnim()
+    }
+
+    //rvContacts.height will return 0, if called immediately, so need to do it with View.post method
     private fun showEnterAnim() {
-        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_up)
-        animation.interpolator = DecelerateInterpolator()
-        rvContacts.startAnimation(animation)
+        log("show")
+        rvContacts.translationY = rvContacts.height.toFloat()
+        rvContacts.alpha = 1F
+        rvContacts.animate()
+                .translationY(0F)
+                .setInterpolator(DecelerateInterpolator())
+                .setDuration(resources.getInteger(R.integer.anim_duration_long).toLong())
+                .start()
     }
-
 }

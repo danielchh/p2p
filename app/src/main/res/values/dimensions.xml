@@ -19,10 +19,10 @@
     <dimen name="avatar_translation">20dp</dimen>
     <item name="avatar_scale" format="float" type="dimen">1.4</item>
 
-    <!-- dimensions -->
     <dimen name="image_width">120dp</dimen>
     <dimen name="image_final_width">32dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
 
-    <dimen name="anim_duration_short">200</dimen>
+    <integer name="anim_duration_short">200</integer>
+    <integer name="anim_duration_long">750</integer>
 </resources>

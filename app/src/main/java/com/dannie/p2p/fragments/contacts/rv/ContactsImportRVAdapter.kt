@@ -16,7 +16,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 
-class ContactsImportRVAdapter(private val items: ArrayList<ContactRoom>):
+class ContactsImportRVAdapter(private val items: ArrayList<ContactRoom>, private val listener: OnCheckedContactChangeListener):
         RecyclerView.Adapter<ContactsImportRVAdapter.ViewHolder>() {
 
     private var itemsCheck: SparseBooleanArray = SparseBooleanArray(items.size)
@@ -29,15 +29,37 @@ class ContactsImportRVAdapter(private val items: ArrayList<ContactRoom>):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = items[position]
         with(holder.itemView){
+            // Set name
             val fullName = StringBuilder()
             fullName.append(currentItem.firstName)
                     .append(" ")
                     .append(currentItem.lastName ?: "")
-            txtFirstName.text = fullName
-            checkBox.isChecked = itemsCheck[position]
+            txtName.text = fullName
+
+            // If already added, or already chosen
+            if (currentItem.isAlreadyAdded){
+                checkBox.visibility = View.INVISIBLE
+                ivImported.visibility = View.VISIBLE
+            } else {
+                checkBox.visibility = View.VISIBLE
+                ivImported.visibility = View.GONE
+
+                checkBox.isChecked = itemsCheck[position]
+                setOnClickListener { changeCheckBoxState(checkBox, position) }
+                checkBox.setOnClickListener { changeCheckBoxState(checkBox, position) }
+            }
+
+            // Show alphabet header, if needed
+            if (isBeginningOfSection(position)){
+                txtHeaderSection.text = items[position].firstName?.get(0).toString()
+                txtHeaderSection.visibility = View.VISIBLE
+            } else {
+                txtHeaderSection.visibility = View.GONE
+            }
+
+            // Manage different avatar sources
             if (currentItem.isAvatarAvailable){
                 ivAvatar.setImageUriPicasso(currentItem.imageUri!!)
-                log("Picture + $position")
             } else {
                 // Picasso doesn't support loading Android Vector Drawable from res/drawable folder,
                 // so had to come up with my own solution
@@ -45,15 +67,15 @@ class ContactsImportRVAdapter(private val items: ArrayList<ContactRoom>):
                     val drawable = ResourcesCompat.getDrawable(context.resources, currentItem.avatarId!!, null)
                     uiThread {
                         ivAvatar.setImageDrawable(drawable)
-                        log("Picture + $position")
                     }
                 }
             }
-
-            setOnClickListener { changeCheckBoxState(it.checkBox, position) }
-            checkBox.setOnClickListener { changeCheckBoxState(it.checkBox, position) }
         }
-        log("onBind + $position")
+    }
+
+    private fun isBeginningOfSection(position: Int): Boolean {
+        return position == 0 ||
+                items[position].firstName?.toCharArray()?.get(0)?.toLowerCase() != items[position - 1].firstName?.toCharArray()?.get(0)?.toLowerCase()
     }
 
     /**
@@ -64,12 +86,17 @@ class ContactsImportRVAdapter(private val items: ArrayList<ContactRoom>):
     private fun changeCheckBoxState(checkBox: CheckBox, position: Int) {
         val newCheckedState = !itemsCheck[position]
         checkBox.isChecked = newCheckedState
+        listener.onCheckedChanged(items[position])
         doAsync {
             itemsCheck.put(position, newCheckedState)
         }
     }
 
     override fun getItemCount(): Int = items.size
+
+    override fun getItemId(position: Int): Long {
+        return items[position].hashCode().toLong()
+    }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
 }
